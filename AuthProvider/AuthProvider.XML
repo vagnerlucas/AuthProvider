@@ -1,0 +1,376 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AuthProvider</name>
+    </assembly>
+    <members>
+        <member name="T:AuthProvider.Core.AuthorizationTypeEnum">
+            <summary>
+            Type of authorizations
+            </summary>
+        </member>
+        <member name="F:AuthProvider.Core.AuthorizationTypeEnum.Group">
+            <summary>
+            Group policy
+            </summary>
+        </member>
+        <member name="F:AuthProvider.Core.AuthorizationTypeEnum.Resources">
+            <summary>
+            Resources policy
+            </summary>
+        </member>
+        <member name="F:AuthProvider.Core.AuthorizationTypeEnum.Roles">
+            <summary>
+            Role policy
+            </summary>
+        </member>
+        <member name="T:AuthProvider.Core.Authenticator">
+            <summary>
+            Authenticator
+            </summary>
+        </member>
+        <member name="P:AuthProvider.Core.Authenticator.CredentialHandler">
+            <summary>
+            Credential Handler
+            </summary>
+        </member>
+        <member name="F:AuthProvider.Core.Authenticator._instance">
+            <summary>
+            Singleton instance
+            </summary>
+        </member>
+        <member name="P:AuthProvider.Core.Authenticator.Configuration">
+            <summary>
+            Authenticator configuration
+            </summary>
+        </member>
+        <member name="P:AuthProvider.Core.Authenticator.CurrentUser">
+            <summary>
+            Current user authenticated and authorized by filter
+            </summary>
+        </member>
+        <member name="M:AuthProvider.Core.Authenticator.#ctor">
+            <summary>
+            Singleton
+            </summary>
+        </member>
+        <member name="M:AuthProvider.Core.Authenticator.AddUser(AuthProvider.Core.Credential.User)">
+            <summary>
+            Add a authenticated user to the credential handler
+            </summary>
+            <param name="user">Authenticated user</param>
+        </member>
+        <member name="M:AuthProvider.Core.Authenticator.RemoveUser(AuthProvider.Core.Credential.User)">
+            <summary>
+            Remove a authenticated user to the credential handler
+            </summary>
+            <param name="user">Authenticated user</param>
+        </member>
+        <member name="M:AuthProvider.Core.Authenticator.GetAuthenticator">
+            <summary>
+            Singleton
+            </summary>
+            <returns>Default Authenticator instance</returns>
+        </member>
+        <member name="M:AuthProvider.Core.Authenticator.CanAuthorize">
+            <summary>
+            If the authenticator can authorize based upon authorize function
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:AuthProvider.Core.Authenticator.TryAuthenticate(System.String,System.String)">
+            <summary>
+            Try to authenticate based upon the authentication function previously provided
+            </summary>
+            <param name="user">User name / Login</param>
+            <param name="password">Password</param>
+            <returns>Authenticated user</returns>
+        </member>
+        <member name="M:AuthProvider.Core.Authenticator.GetUser(System.String,System.String,System.String)">
+            <summary>
+            Gets the user from the credential handler
+            </summary>
+            <param name="clientID">Application Client ID</param>
+            <param name="userID">User ID</param>
+            <param name="userName">User name</param>
+            <returns></returns>
+        </member>
+        <member name="T:AuthProvider.Core.Config.AuthConfig">
+            <summary>
+            Authenticator configuration
+            </summary>
+        </member>
+        <member name="P:AuthProvider.Core.Config.AuthConfig.ClientID">
+            <summary>
+            Application Client ID
+            </summary>
+        </member>
+        <member name="P:AuthProvider.Core.Config.AuthConfig.AllowInsecureConnection">
+            <summary>
+            Allow insecure connections (default: false)
+            </summary>
+        </member>
+        <member name="P:AuthProvider.Core.Config.AuthConfig.TokenGeneratorUrlPath">
+            <summary>
+            URL to authenticate and provide token
+            </summary>
+        </member>
+        <member name="P:AuthProvider.Core.Config.AuthConfig.TokenExpirationInterval">
+            <summary>
+            Time interval (in minutes) for the token life
+            </summary>
+        </member>
+        <member name="P:AuthProvider.Core.Config.AuthConfig.AuthenticationFunction">
+            <summary>
+            Function for authentication
+            </summary>
+        </member>
+        <member name="P:AuthProvider.Core.Config.AuthConfig.AuthorizationFunction">
+            <summary>
+            Function for authorization
+            </summary>
+        </member>
+        <member name="P:AuthProvider.Core.Config.AuthConfig.AuthorizationType">
+            <summary>
+            Type of authorizations to use on controller filter
+            </summary>
+        </member>
+        <member name="T:AuthProvider.Core.CredentialHandler">
+            <summary>
+            Credential handler
+            </summary>
+        </member>
+        <member name="P:AuthProvider.Core.CredentialHandler.UserStorage">
+            <summary>
+            User storage
+            </summary>
+        </member>
+        <member name="M:AuthProvider.Core.CredentialHandler.#ctor">
+            <summary>
+            Constructor
+            </summary>
+        </member>
+        <member name="T:AuthProvider.Core.Filters.MVC.MVCAuthorize">
+            <summary>
+            MVC Filter to provide authorization
+            </summary>
+        </member>
+        <member name="M:AuthProvider.Core.Filters.MVC.MVCAuthorize.OnAuthorization(System.Web.Mvc.AuthorizationContext)">
+            <summary>
+            
+            </summary>
+            <param name="filterContext"></param>
+        </member>
+        <member name="M:AuthProvider.Core.Filters.MVC.MVCAuthorize.AuthorizeCore(System.Web.HttpContextBase)">
+            <summary>
+            
+            </summary>
+            <param name="httpContext"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AuthProvider.Core.Filters.MVC.MVCAuthorize.HandleUnauthorizedRequest(System.Web.Mvc.AuthorizationContext)">
+            <summary>
+            
+            </summary>
+            <param name="filterContext"></param>
+        </member>
+        <member name="T:AuthProvider.Core.Filters.WebAPI.WebAPIAuthorize">
+            <summary>
+            Web API filter to provide authorization
+            </summary>
+        </member>
+        <member name="F:AuthProvider.Core.Filters.WebAPI.WebAPIAuthorize.message">
+            <summary>
+            Default error message
+            </summary>
+        </member>
+        <member name="F:AuthProvider.Core.Filters.WebAPI.WebAPIAuthorize.statusCode">
+            <summary>
+            Default error code
+            </summary>
+        </member>
+        <member name="P:AuthProvider.Core.Filters.WebAPI.WebAPIAuthorize.Groups">
+            <summary>
+            Groups allowed to access
+            </summary>
+        </member>
+        <member name="M:AuthProvider.Core.Filters.WebAPI.WebAPIAuthorize.IsApiPageRequested(System.Web.Http.Controllers.HttpActionContext)">
+            <summary>
+            
+            </summary>
+            <param name="actionContext"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AuthProvider.Core.Filters.WebAPI.WebAPIAuthorize.GetApiAuthorizeAttributes(System.Web.Http.Controllers.HttpActionDescriptor)">
+            <summary>
+            
+            </summary>
+            <param name="descriptor"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AuthProvider.Core.Filters.WebAPI.WebAPIAuthorize.OnAuthorization(System.Web.Http.Controllers.HttpActionContext)">
+            <summary>
+            
+            </summary>
+            <param name="actionContext"></param>
+        </member>
+        <member name="M:AuthProvider.Core.Filters.WebAPI.WebAPIAuthorize.HandleUnauthorizedRequest(System.Web.Http.Controllers.HttpActionContext)">
+            <summary>
+            
+            </summary>
+            <param name="actionContext"></param>
+        </member>
+        <member name="M:AuthProvider.Core.Filters.WebAPI.WebAPIAuthorize.IsAuthorized(System.Web.Http.Controllers.HttpActionContext)">
+            <summary>
+            
+            </summary>
+            <param name="actionContext"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AuthProvider.Core.Filters.WebAPI.WebAPIAuthorize.CreateAuthorizationFunction(AuthProvider.Core.Credential.User,System.Web.Http.Controllers.HttpActionContext)">
+            <summary>
+            Creates the authorization function based on the AuthenticationType
+            </summary>
+            <param name="user">Authenticated user</param>
+            <param name="actionContext">ActionContext</param>
+            <returns>Bool function</returns>
+        </member>
+        <member name="M:AuthProvider.Core.Filters.WebAPI.WebAPIAuthorize.GetRequestUser(System.Web.Http.Controllers.HttpActionContext)">
+            <summary>
+            Gets the requested user by context
+            </summary>
+            <param name="actionContext">ActionContext</param>
+            <returns>Authenticated user</returns>
+        </member>
+        <member name="T:AuthProvider.Core.Provider.RefreshTokenProvider">
+            <summary>
+            Refresh token provider
+            source: http://www.c-sharpcorner.com/UploadFile/ff2f08/angularjs-enable-owin-refresh-tokens-using-asp-net-web-api/
+            </summary>
+        </member>
+        <member name="M:AuthProvider.Core.Provider.RefreshTokenProvider.CreateAsync(Microsoft.Owin.Security.Infrastructure.AuthenticationTokenCreateContext)">
+            <summary>
+            
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AuthProvider.Core.Provider.RefreshTokenProvider.Create(Microsoft.Owin.Security.Infrastructure.AuthenticationTokenCreateContext)">
+            <summary>
+            
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:AuthProvider.Core.Provider.RefreshTokenProvider.Receive(Microsoft.Owin.Security.Infrastructure.AuthenticationTokenReceiveContext)">
+            <summary>
+            
+            </summary>
+            <param name="context"></param>
+        </member>
+        <member name="M:AuthProvider.Core.Provider.RefreshTokenProvider.ReceiveAsync(Microsoft.Owin.Security.Infrastructure.AuthenticationTokenReceiveContext)">
+            <summary>
+            
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AuthProvider.Core.Provider.AuthorizationProvider">
+            <summary>
+            Authorization Provider
+            </summary>
+        </member>
+        <member name="M:AuthProvider.Core.Provider.AuthorizationProvider.GrantRefreshToken(Microsoft.Owin.Security.OAuth.OAuthGrantRefreshTokenContext)">
+            <summary>
+            
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AuthProvider.Core.Provider.AuthorizationProvider.ValidateClientAuthentication(Microsoft.Owin.Security.OAuth.OAuthValidateClientAuthenticationContext)">
+            <summary>
+            
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AuthProvider.Core.Provider.AuthorizationProvider.GrantResourceOwnerCredentials(Microsoft.Owin.Security.OAuth.OAuthGrantResourceOwnerCredentialsContext)">
+            <summary>
+            
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="T:AuthProvider.Core.Credential.UserProfile">
+            <summary>
+            The user profile definitions
+            </summary>
+        </member>
+        <member name="P:AuthProvider.Core.Credential.UserProfile.Role">
+            <summary>
+            Roles
+            </summary>
+        </member>
+        <member name="P:AuthProvider.Core.Credential.UserProfile.Groups">
+            <summary>
+            Groups
+            </summary>
+        </member>
+        <member name="P:AuthProvider.Core.Credential.UserProfile.Resources">
+            <summary>
+            Resources
+            </summary>
+        </member>
+        <member name="T:AuthProvider.Core.Credential.User">
+            <summary>
+            Authenticated user credential
+            </summary>
+        </member>
+        <member name="P:AuthProvider.Core.Credential.User.Token">
+            <summary>
+            Token of the last request
+            </summary>
+        </member>
+        <member name="P:AuthProvider.Core.Credential.User.IsAuthenticated">
+            <summary>
+            The authenticate state of the user
+            </summary>
+        </member>
+        <member name="P:AuthProvider.Core.Credential.User.UserName">
+            <summary>
+            User name
+            </summary>
+        </member>
+        <member name="P:AuthProvider.Core.Credential.User.UserID">
+            <summary>
+            User ID
+            </summary>
+        </member>
+        <member name="P:AuthProvider.Core.Credential.User.ClientID">
+            <summary>
+            Application ID
+            </summary>
+        </member>
+        <member name="P:AuthProvider.Core.Credential.User.Profile">
+            <summary>
+            User profile
+            </summary>
+        </member>
+        <member name="T:AuthProvider.Startup">
+            <summary>
+            OwinStartup class
+            </summary>
+        </member>
+        <member name="M:AuthProvider.Startup.Configuration(Owin.IAppBuilder)">
+            <summary>
+            
+            </summary>
+            <param name="app"></param>
+        </member>
+        <member name="M:AuthProvider.Startup.ConfigureOAuth(Owin.IAppBuilder)">
+            <summary>
+            
+            </summary>
+            <param name="app"></param>
+        </member>
+    </members>
+</doc>
