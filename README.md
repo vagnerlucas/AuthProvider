@@ -59,7 +59,7 @@ Now use its WEBAPI Filter
   
     [HttpGet]
     //Considering the CODE_NAME of the groups
-    [WebAPIAuthorize(Groups = "ADM, "CLI")] 
+    [WebAPIAuthorize(Groups = "ADM, CLI")] 
     public IHttpActionResult Test() {
       var autenticador = Authenticator.GetAuthenticator();
       //The authenticated and authorized user
