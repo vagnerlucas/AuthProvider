@@ -4,7 +4,18 @@ Owin and Oauth provider for C# .NET web applications
 
 # Usage:
 
-Configure the authenticator in Global.asax.cs
+**Packages needed**:
+
+Microsoft.AspNet.Cors
+
+Microsoft.AspNet.WebApi.Owin
+
+Microsoft.Owin.Host.SystemWeb
+
+Microsoft.Owin.Cors
+
+
+**Configure the authenticator in Global.asax.cs**
 ```C#
 // Global.asax.cs
 //...
