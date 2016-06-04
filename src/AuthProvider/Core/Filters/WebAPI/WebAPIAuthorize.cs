@@ -107,6 +107,8 @@ namespace AuthProvider.Core.Filters.WebAPI
                             user.Token = authorizationToken;
                         }
 
+                        user.LastActivity = DateTime.Now;
+
                         authenticator.CurrentUser = user;
                         return true;
                     }

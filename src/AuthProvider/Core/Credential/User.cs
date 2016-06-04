@@ -1,10 +1,18 @@
-﻿namespace AuthProvider.Core.Credential
+﻿using System;
+
+namespace AuthProvider.Core.Credential
 {
     /// <summary>
     /// Authenticated user credential
     /// </summary>
     public class User
     {
+
+        /// <summary>
+        /// DateTime information about the user's last activity
+        /// </summary>
+        internal DateTime LastActivity { get; set; }
+
         /// <summary>
         /// Token of the last request
         /// </summary>

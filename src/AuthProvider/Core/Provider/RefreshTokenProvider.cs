@@ -86,6 +86,8 @@ namespace AuthProvider.Core.Provider
             AuthenticationTicket ticket;
             string header = context.OwinContext.Request.Headers["Authorization"];
 
+            context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
+
             if (_refreshTokens.TryRemove(context.Token, out ticket))
             {
                 context.SetTicket(ticket);

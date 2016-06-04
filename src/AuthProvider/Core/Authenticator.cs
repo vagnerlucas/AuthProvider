@@ -2,6 +2,7 @@
 using AuthProvider.Core.Credential;
 using System;
 using System.Linq;
+using System.Threading;
 
 namespace AuthProvider.Core
 {
@@ -28,6 +29,28 @@ namespace AuthProvider.Core
     /// </summary>
     public class Authenticator
     {
+
+        /// <summary>
+        /// Activity checker
+        /// </summary>
+        private Thread activityChecker;
+
+        /// <summary>
+        /// Flush Users from credential storage with no recent activities
+        /// </summary>
+        private void FlushStatus()
+        {
+            if (CredentialHandler.UserStorage.Count > 0)
+            {
+                CredentialHandler.UserStorage.ForEach(w =>
+                {
+                    if (w.LastActivity.Minute - DateTime.Now.Minute < Configuration.TokenExpirationInterval)
+                        RemoveUser(w);
+                });
+            }
+            Thread.Sleep(TimeSpan.FromMinutes(1));
+        }
+
         /// <summary>
         /// Credential Handler
         /// </summary>
@@ -55,6 +78,8 @@ namespace AuthProvider.Core
         private Authenticator()
         {
             CredentialHandler = new CredentialHandler();
+            activityChecker = new Thread(FlushStatus);
+            activityChecker.Start();
         }
 
         /// <summary>

@@ -29,6 +29,16 @@
             Authenticator
             </summary>
         </member>
+        <member name="F:AuthProvider.Core.Authenticator.activityChecker">
+            <summary>
+            Activity checker
+            </summary>
+        </member>
+        <member name="M:AuthProvider.Core.Authenticator.FlushStatus">
+            <summary>
+            Flush Users from credential storage with no recent activities
+            </summary>
+        </member>
         <member name="P:AuthProvider.Core.Authenticator.CredentialHandler">
             <summary>
             Credential Handler
@@ -323,6 +333,11 @@
         <member name="T:AuthProvider.Core.Credential.User">
             <summary>
             Authenticated user credential
+            </summary>
+        </member>
+        <member name="P:AuthProvider.Core.Credential.User.LastActivity">
+            <summary>
+            DateTime information about the user's last activity
             </summary>
         </member>
         <member name="P:AuthProvider.Core.Credential.User.Token">
