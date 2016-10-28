@@ -14,6 +14,8 @@ Microsoft.Owin.Host.SystemWeb
 
 Microsoft.Owin.Cors
 
+Microsoft.Owin.Security.OAuth
+
 
 **Configure the authenticator in Global.asax.cs**
 ```C#
@@ -57,6 +59,9 @@ protected void Application_Start()
                 user.UserID = eUser.ID_USER.ToString();
                 user.UserName = eUser.USER_NAME;
                 user.Profile = new UserProfile() { Groups = new String[] { eUser.PROFILE.CODE_NAME } };
+                //If needed it's possible to add extra info to your authenticated user as "external claims"
+                user.ExternalClaims = new Dictionary<string, object>();
+                user.ExternalClaims.Add("EXTERNAL", 42);
                 return user;
             }
         }
@@ -72,10 +77,18 @@ Now use its WEBAPI Filter
     //Considering the CODE_NAME of the groups
     [WebAPIAuthorize(Groups = "ADM, CLI")] 
     public IHttpActionResult Test() {
-      var autenticador = Authenticator.GetAuthenticator();
-      //The authenticated and authorized user
-      var user = authenticator.CurrentUser; 
-      //... code
+        var authenticator = Authenticator.GetAuthenticator();
+        //The authenticated and authorized user
+        var user = authenticator.CurrentUser;
+        var external = Convert.ToDecimal(user.ExternalClaims["EXTERNAL"]);
+
+        var userResult = new
+        {
+            login = user.UserName,
+            external_id = external
+        };
+
+        return Ok(userResult);
     }
   
   }
