@@ -335,6 +335,11 @@
             Authenticated user credential
             </summary>
         </member>
+        <member name="P:AuthProvider.Core.Credential.User.ExternalClaims">
+            <summary>
+            Claims added by the external authenticator function
+            </summary>
+        </member>
         <member name="P:AuthProvider.Core.Credential.User.LastActivity">
             <summary>
             DateTime information about the user's last activity

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace AuthProvider.Core.Credential
 {
@@ -7,6 +8,10 @@ namespace AuthProvider.Core.Credential
     /// </summary>
     public class User
     {
+        /// <summary>
+        /// Claims added by the external authenticator function
+        /// </summary>
+        public Dictionary<string, object> ExternalClaims { get; set; }
 
         /// <summary>
         /// DateTime information about the user's last activity
