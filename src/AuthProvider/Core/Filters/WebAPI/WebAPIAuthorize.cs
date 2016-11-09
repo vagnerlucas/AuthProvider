@@ -199,9 +199,10 @@ namespace AuthProvider.Core.Filters.WebAPI
 
                 if (user.Identity.IsAuthenticated)
                 {
-                    var clientID = user.Claims.Where(w => w.Type == "ClientID").FirstOrDefault().Value;
-                    var userID = user.Claims.Where(w => w.Type == "UserID").FirstOrDefault().Value;
-                    var userName = user.Claims.Where(w => w.Type == "User").FirstOrDefault().Value;
+                    string clientID = user.Claims.Where(w => w.Type == "ClientID").FirstOrDefault().Value;
+                    string userID = user.Claims.Where(w => w.Type == "UserID").FirstOrDefault().Value;
+                    string userName = user.Claims.Where(w => w.Type == "User").FirstOrDefault().Value;
+
                     var authenticatedUser = authenticator.GetUser(clientID, userID, userName);
 
                     return authenticatedUser;

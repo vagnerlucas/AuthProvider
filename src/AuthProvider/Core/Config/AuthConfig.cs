@@ -42,5 +42,10 @@ namespace AuthProvider.Core.Config
         /// Type of authorizations to use on controller filter
         /// </summary>
         public AuthorizationTypeEnum AuthorizationType { get; set; } = AuthorizationTypeEnum.Roles;
+
+        /// <summary>
+        /// Enable multiple sessions for authenticated users
+        /// </summary>
+        public bool AllowMultipleSessions { get; set; } = false;
     }
 }

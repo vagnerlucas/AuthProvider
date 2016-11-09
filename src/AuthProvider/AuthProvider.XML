@@ -145,6 +145,11 @@
             Type of authorizations to use on controller filter
             </summary>
         </member>
+        <member name="P:AuthProvider.Core.Config.AuthConfig.AllowMultipleSessions">
+            <summary>
+            Enable multiple sessions for authenticated users
+            </summary>
+        </member>
         <member name="T:AuthProvider.Core.CredentialHandler">
             <summary>
             Credential handler

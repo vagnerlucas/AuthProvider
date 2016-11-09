@@ -88,12 +88,11 @@ namespace AuthProvider.Core
         /// <param name="user">Authenticated user</param>
         public void AddUser(User user)
         {
-
             user.IsAuthenticated = true;
 
             var userTmp = CredentialHandler.UserStorage.FirstOrDefault(w => w.ClientID == user.ClientID && w.UserID == user.UserID && w.UserName == user.UserName);
 
-            if (userTmp != null)
+            if (userTmp != null && !Configuration.AllowMultipleSessions)
                 CredentialHandler.UserStorage.Remove(userTmp);
 
             CredentialHandler.UserStorage.Add(user);
@@ -140,7 +139,7 @@ namespace AuthProvider.Core
         public User TryAuthenticate(string user, string password)
         {
             if (Configuration == null)
-                throw new NullReferenceException("Configurações nulas ou inválidas");
+                throw new NullReferenceException("Invalid or null configuration");
 
             return Configuration.AuthenticationFunction(user, password);
         }
@@ -155,7 +154,7 @@ namespace AuthProvider.Core
         internal User GetUser(string clientID, string userID, string userName)
         {
             if (Configuration.ClientID != clientID)
-                throw new ArgumentException("Client ID inválido");
+                throw new ArgumentException("Invalid Client ID");
 
             return CredentialHandler.UserStorage.FirstOrDefault(w => w.ClientID == clientID && w.UserID == userID && w.UserName == userName);
         }
