@@ -31,7 +31,10 @@ namespace AuthProvider.Core.Provider
         /// <returns></returns>
         public override async Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
         {
-            context.Validated();
+            await Task.Run(() =>
+            {
+                context.Validated();
+            });
         }
 
         /// <summary>

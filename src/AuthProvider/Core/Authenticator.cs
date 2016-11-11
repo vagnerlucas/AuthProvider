@@ -92,7 +92,7 @@ namespace AuthProvider.Core
 
             var userTmp = CredentialHandler.UserStorage.FirstOrDefault(w => w.ClientID == user.ClientID && w.UserID == user.UserID && w.UserName == user.UserName);
 
-            if (userTmp != null && !Configuration.AllowMultipleSessions)
+            if (userTmp != null)
                 CredentialHandler.UserStorage.Remove(userTmp);
 
             CredentialHandler.UserStorage.Add(user);

@@ -34,7 +34,7 @@ namespace AuthProvider.Core.Provider
 
             try
             {
-                var authenticatedUser = authenticator.GetUser(clientID, userID, userName);
+                var authenticatedUser = await Task.Run(() => { return authenticator.GetUser(clientID, userID, userName); });
             }
             catch (Exception ex)
             {
@@ -84,14 +84,17 @@ namespace AuthProvider.Core.Provider
         public async Task ReceiveAsync(AuthenticationTokenReceiveContext context)
         {
             AuthenticationTicket ticket;
-            string header = context.OwinContext.Request.Headers["Authorization"];
-
-            context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
-
-            if (_refreshTokens.TryRemove(context.Token, out ticket))
+            await Task.Run(() =>
             {
-                context.SetTicket(ticket);
-            }
+                string header = context.OwinContext.Request.Headers["Authorization"];
+
+                context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] { "*" });
+
+                if (_refreshTokens.TryRemove(context.Token, out ticket))
+                {
+                    context.SetTicket(ticket);
+                }
+            });
         }
     }
 }
