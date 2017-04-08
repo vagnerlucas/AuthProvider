@@ -1,5 +1,6 @@
 ﻿using AuthProvider.Core.Credential;
 using System;
+using System.Threading.Tasks;
 
 namespace AuthProvider.Core.Config
 {
@@ -34,6 +35,11 @@ namespace AuthProvider.Core.Config
         public Func<string, string, User> AuthenticationFunction { get; set; }
 
         /// <summary>
+        /// Function for async authentication
+        /// </summary>
+        public Func<string, string, Task<User>> AuthenticationFunctionAsync { get; set; }
+
+        /// <summary>
         /// Function for authorization
         /// </summary>
         internal Func<bool> AuthorizationFunction { get; set; }
@@ -42,5 +48,10 @@ namespace AuthProvider.Core.Config
         /// Type of authorizations to use on controller filter
         /// </summary>
         public AuthorizationTypeEnum AuthorizationType { get; set; } = AuthorizationTypeEnum.Roles;
+
+        /// <summary>
+        /// External function to authorize depending on client's logic
+        /// </summary>
+        public Func<string, User, bool> ExternalAuthorizationFunction { get; set; }
     }
 }

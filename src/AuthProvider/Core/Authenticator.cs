@@ -3,6 +3,7 @@ using AuthProvider.Core.Credential;
 using System;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace AuthProvider.Core
 {
@@ -21,7 +22,11 @@ namespace AuthProvider.Core
         /// <summary>
         /// Role policy
         /// </summary>
-        Roles
+        Roles,
+        /// <summary>
+        /// External function policy
+        /// </summary>
+        External
     }
 
     /// <summary>
@@ -142,6 +147,20 @@ namespace AuthProvider.Core
                 throw new NullReferenceException("Invalid or null configuration");
 
             return Configuration.AuthenticationFunction(user, password);
+        }
+
+        /// <summary>
+        /// Try to authenticate based upon the authentication function previously provided using async
+        /// </summary>
+        /// <param name="user">User name / Login</param>
+        /// <param name="password">Password</param>
+        /// <returns>Authenticated user</returns>
+        public async Task<User> TryAuthenticateAsync(string user, string password)
+        {
+            if (Configuration == null)
+                throw new NullReferenceException("Invalid or null configuration");
+
+            return await Configuration.AuthenticationFunctionAsync(user, password);
         }
 
         /// <summary>

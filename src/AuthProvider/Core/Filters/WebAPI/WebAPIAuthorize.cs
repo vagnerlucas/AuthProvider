@@ -32,6 +32,11 @@ namespace AuthProvider.Core.Filters.WebAPI
         public string Groups { get; set; }
 
         /// <summary>
+        /// Procedure name for external check
+        /// </summary>
+        public string ProcedureName { get; set; }
+
+        /// <summary>
         /// 
         /// </summary>
         /// <param name="actionContext"></param>
@@ -152,25 +157,34 @@ namespace AuthProvider.Core.Filters.WebAPI
         {
             var authenticator = Authenticator.GetAuthenticator();
             var apiAttributes = GetApiAuthorizeAttributes(actionContext.ActionDescriptor);
-            var result = false;
+            bool result = false;
 
             if (apiAttributes != null && apiAttributes.Any())
             {
                 switch (authenticator.Configuration.AuthorizationType)
                 {
+                    case AuthorizationTypeEnum.External:
+                        {
+                            var procedureName = apiAttributes.Select(w => w.ProcedureName).FirstOrDefault();
+                            if (!string.IsNullOrWhiteSpace(procedureName))
+                                result = authenticator.Configuration.ExternalAuthorizationFunction(procedureName, user);
+                            break;
+                        }
                     case AuthorizationTypeEnum.Group:
-                        var groups = apiAttributes.Select(w => w.Groups).FirstOrDefault();
-                        if (groups != null)
-                            foreach (var group in groups.Split(','))
-                            {
-                                if (user.Profile != null)
-                                    if (user.Profile.Groups.Contains(group.Trim()))
-                                    {
-                                        result = true;
-                                        break;
-                                    };
-                            }
-                        break;
+                        {
+                            var groups = apiAttributes.Select(w => w.Groups).FirstOrDefault();
+                            if (groups != null)
+                                foreach (var group in groups.Split(','))
+                                {
+                                    if (user.Profile != null)
+                                        if (user.Profile.Groups.Contains(group.Trim()))
+                                        {
+                                            result = true;
+                                            break;
+                                        };
+                                }
+                            break;
+                        }
                     case AuthorizationTypeEnum.Resources:
                         throw new NotImplementedException("Not implemented");
                     //break;

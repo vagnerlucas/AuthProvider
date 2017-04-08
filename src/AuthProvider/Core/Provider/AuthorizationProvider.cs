@@ -53,7 +53,9 @@ namespace AuthProvider.Core.Provider
             var password = string.IsNullOrWhiteSpace(data["senha"]) ? context.Password : data["senha"];
 
             var authenticator = Authenticator.GetAuthenticator();
-            var authenticatedUser = authenticator.TryAuthenticate(userName, password);
+            var authenticatedUser = authenticator.Configuration.AuthenticationFunctionAsync == null ? 
+                                    authenticator.TryAuthenticate(userName, password) :
+                                    await authenticator.TryAuthenticateAsync(userName, password);
 
             if (authenticatedUser == null)
             {
