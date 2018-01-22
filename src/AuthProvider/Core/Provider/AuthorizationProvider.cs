@@ -51,11 +51,12 @@ namespace AuthProvider.Core.Provider
             var data = await context.Request.ReadFormAsync();
             var userName = string.IsNullOrWhiteSpace(data["usuario"]) ? context.UserName : data["usuario"];
             var password = string.IsNullOrWhiteSpace(data["senha"]) ? context.Password : data["senha"];
+            var args = string.IsNullOrWhiteSpace(data["args"]) ? string.Empty : data["args"];
 
             var authenticator = Authenticator.GetAuthenticator();
-            var authenticatedUser = authenticator.Configuration.AuthenticationFunctionAsync == null ? 
-                                    authenticator.TryAuthenticate(userName, password) :
-                                    await authenticator.TryAuthenticateAsync(userName, password);
+            var authenticatedUser = authenticator.Configuration.AuthenticationFunctionAsync == null ?
+                                    authenticator.TryAuthenticate(userName, password, args) :
+                                    await authenticator.TryAuthenticateAsync(userName, password, args);
 
             if (authenticatedUser == null)
             {
@@ -72,6 +73,25 @@ namespace AuthProvider.Core.Provider
             identity.AddClaim(new Claim("User", authenticatedUser.UserName));
 
             context.Validated(identity);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="context"></param>
+        /// <returns></returns>
+        public override Task TokenEndpoint(OAuthTokenEndpointContext context)
+        {
+            var authenticator = Authenticator.GetAuthenticator();
+            if (authenticator.Configuration?.ExternalResponseParametersFunction != null)
+            {
+                foreach (var item in authenticator.Configuration?.ExternalResponseParametersFunction())
+                {
+                    context.AdditionalResponseParameters.Add(item.Key, item.Value);
+                }
+            }
+
+            return base.TokenEndpoint(context);
         }
     }
 }

@@ -93,20 +93,22 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:AuthProvider.Core.Authenticator.TryAuthenticate(System.String,System.String)">
+        <member name="M:AuthProvider.Core.Authenticator.TryAuthenticate(System.String,System.String,System.String)">
             <summary>
             Try to authenticate based upon the authentication function previously provided
             </summary>
             <param name="user">User name / Login</param>
             <param name="password">Password</param>
+            <param name="args">Extra arguments</param>
             <returns>Authenticated user</returns>
         </member>
-        <member name="M:AuthProvider.Core.Authenticator.TryAuthenticateAsync(System.String,System.String)">
+        <member name="M:AuthProvider.Core.Authenticator.TryAuthenticateAsync(System.String,System.String,System.String)">
             <summary>
             Try to authenticate based upon the authentication function previously provided using async
             </summary>
             <param name="user">User name / Login</param>
             <param name="password">Password</param>
+            <param name="args">Extra arguments</param>
             <returns>Authenticated user</returns>
         </member>
         <member name="M:AuthProvider.Core.Authenticator.GetUser(System.String,System.String,System.String)">
@@ -166,6 +168,11 @@
         <member name="P:AuthProvider.Core.Config.AuthConfig.ExternalAuthorizationFunction">
             <summary>
             External function to authorize depending on client's logic
+            </summary>
+        </member>
+        <member name="P:AuthProvider.Core.Config.AuthConfig.ExternalResponseParametersFunction">
+            <summary>
+            External dictionary to be added to token endpoint
             </summary>
         </member>
         <member name="T:AuthProvider.Core.CredentialHandler">
@@ -332,6 +339,13 @@
             <returns></returns>
         </member>
         <member name="M:AuthProvider.Core.Provider.AuthorizationProvider.GrantResourceOwnerCredentials(Microsoft.Owin.Security.OAuth.OAuthGrantResourceOwnerCredentialsContext)">
+            <summary>
+            
+            </summary>
+            <param name="context"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AuthProvider.Core.Provider.AuthorizationProvider.TokenEndpoint(Microsoft.Owin.Security.OAuth.OAuthTokenEndpointContext)">
             <summary>
             
             </summary>

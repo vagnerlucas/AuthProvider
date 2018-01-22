@@ -1,5 +1,6 @@
 ﻿using AuthProvider.Core.Credential;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace AuthProvider.Core.Config
@@ -32,12 +33,12 @@ namespace AuthProvider.Core.Config
         /// <summary>
         /// Function for authentication
         /// </summary>
-        public Func<string, string, User> AuthenticationFunction { get; set; }
+        public Func<string, string, string, User> AuthenticationFunction { get; set; }
 
         /// <summary>
         /// Function for async authentication
         /// </summary>
-        public Func<string, string, Task<User>> AuthenticationFunctionAsync { get; set; }
+        public Func<string, string, string, Task<User>> AuthenticationFunctionAsync { get; set; }
 
         /// <summary>
         /// Function for authorization
@@ -53,5 +54,10 @@ namespace AuthProvider.Core.Config
         /// External function to authorize depending on client's logic
         /// </summary>
         public Func<string, User, bool> ExternalAuthorizationFunction { get; set; }
+
+        /// <summary>
+        /// External dictionary to be added to token endpoint
+        /// </summary>
+        public Func<Dictionary<string, object>> ExternalResponseParametersFunction { get; set; }
     }
 }

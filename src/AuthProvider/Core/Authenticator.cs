@@ -1,5 +1,6 @@
 ﻿using AuthProvider.Core.Config;
 using AuthProvider.Core.Credential;
+using Microsoft.Owin.Security.OAuth;
 using System;
 using System.Linq;
 using System.Threading;
@@ -10,7 +11,8 @@ namespace AuthProvider.Core
     /// <summary>
     /// Type of authorizations
     /// </summary>
-    public enum AuthorizationTypeEnum {
+    public enum AuthorizationTypeEnum
+    {
         /// <summary>
         /// Group policy
         /// </summary>
@@ -140,13 +142,14 @@ namespace AuthProvider.Core
         /// </summary>
         /// <param name="user">User name / Login</param>
         /// <param name="password">Password</param>
+        /// <param name="args">Extra arguments</param>
         /// <returns>Authenticated user</returns>
-        public User TryAuthenticate(string user, string password)
+        public User TryAuthenticate(string user, string password, string args)
         {
             if (Configuration == null)
                 throw new NullReferenceException("Invalid or null configuration");
 
-            return Configuration.AuthenticationFunction(user, password);
+            return Configuration.AuthenticationFunction(user, password, args);
         }
 
         /// <summary>
@@ -154,13 +157,14 @@ namespace AuthProvider.Core
         /// </summary>
         /// <param name="user">User name / Login</param>
         /// <param name="password">Password</param>
+        /// <param name="args">Extra arguments</param>
         /// <returns>Authenticated user</returns>
-        public async Task<User> TryAuthenticateAsync(string user, string password)
+        public async Task<User> TryAuthenticateAsync(string user, string password, string args)
         {
             if (Configuration == null)
                 throw new NullReferenceException("Invalid or null configuration");
 
-            return await Configuration.AuthenticationFunctionAsync(user, password);
+            return await Configuration.AuthenticationFunctionAsync(user, password, args);
         }
 
         /// <summary>
